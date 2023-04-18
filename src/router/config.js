@@ -26,12 +26,20 @@ const routes=[
         component:()=>import('@/views/news-manage/NewsList.vue')
     },
     {
+        path:'/news-manage/editnews/:id',
+        component:()=>import('@/views/news-manage/NewsEdit.vue')
+    },
+    {
         path:'/product-manage/addproduct',
         component:()=>import('@/views/product-manage/ProductAdd.vue')
     },
     {
         path:'/product-manage/productlist',
         component:()=>import('@/views/product-manage/ProductList.vue')
+    },
+    {
+        path:'/product-manage/editproduct/:id',
+        component:()=>import('@/views/product-manage/ProductEdit.vue')
     },
     {
         //重定向到/index

@@ -118,6 +118,7 @@ const handleChange = (file) => {
   //URL.createObjectURL创建URL对象
   userForm.avatar = URL.createObjectURL(file);
   userForm.file = file;
+  console.log(userForm.avatar,'center')
 };
 
 //更新提交
