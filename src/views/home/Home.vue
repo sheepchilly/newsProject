@@ -23,8 +23,7 @@
 
           <el-carousel :interval="4000" type="card" height="200px" v-if="lunbo.length">
             <el-carousel-item v-for="item in lunbo" :key="item._id">
-              <div :style="{backgroundImage:`url(http://localhost:3000${item.cover })`}">
-                <h3 text="2xl" justify="center">{{ item.title }}</h3>
+              <div class="item" :style="{backgroundImage:`url(http://localhost:3000${item.cover })`}">
               </div>
             </el-carousel-item>
           </el-carousel>
@@ -67,21 +66,9 @@ const getData = async ()=>{
 .box-card {
   margin-top: 30px;
 }
-
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-  text-align: center;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
+.item{
+  width:100%;
+  height:100%;
+  background-size:cover;
 }
 </style>
