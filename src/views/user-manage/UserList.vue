@@ -30,8 +30,8 @@
           <template #default="scope">
             <el-tag
               class="ml-2"
-              :type="scope.row.role === 1 ? 'success' : 'warning'"
-              >{{ scope.row.role === 1 ? "管理员" : "编辑" }}</el-tag
+              :type="scope.row.role === 1 ? 'success' : scope.row.role === 2 ?'warning':'primary'"
+              >{{ scope.row.role === 1 ? "管理员" : scope.row.role === 2 ? "编辑" : "普通用户"}}</el-tag
             >
           </template>
         </el-table-column>
@@ -128,6 +128,7 @@ const userFormRules = reactive({
 const options = [
   { value: 1, label: "管理员" },
   { value: 2, label: "编辑" },
+  { value: 3, label: "普通用户" },
 ];
 
 onMounted(() => {
