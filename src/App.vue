@@ -1,12 +1,21 @@
 <template>
-  <div>
-    <Navbar />
+  <div class="appcontainer">
+    <Navbar v-if="hasLogin"/>
     <router-view></router-view>
   </div>
 </template>
 
 <script setup>
+import {useRoute} from 'vue-router'
+import {computed} from 'vue'
 import Navbar from '@/components/Navbar.vue'
+const Route = useRoute()
+
+const hasLogin = computed(()=>{
+  if(Route.name === 'Login')
+    return false
+  return true
+})
 
 </script>
 
@@ -15,16 +24,10 @@ import Navbar from '@/components/Navbar.vue'
   margin: 0;
   padding: 0;
 }
-::-webkit-scrollbar{
-  width: 5px;
-  height: 5px;
-  position: absolute;
-}
-::-webkit-scrollbar-thumb{
-  background: #1890ff;
-}
-::-webkit-scrollbar-track{
-  background: #ddd;
-  
+ ::-webkit-scrollbar {
+   width: 0 !important;
+ }
+ ::-webkit-scrollbar {
+   width: 0 !important;height: 0;
 }
 </style>

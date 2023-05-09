@@ -10,19 +10,29 @@
     <el-menu-item index="/">首页</el-menu-item>
     <el-menu-item index="/news">新闻中心</el-menu-item>
     <el-menu-item index="/product">产品与服务</el-menu-item>
-    <el-menu-item index="" @click="handleClick">登录</el-menu-item>
+
+    <el-dropdown>
+    <div class="right">企业门户官网</div>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item>个人中心</el-dropdown-item>
+        <el-dropdown-item @click="handleClick">退出登录</el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+
   </el-menu>
 
-  <div class="right">企业门户官网</div>
   </div>
 </template>
 
 <script setup>
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter} from 'vue-router'
 const route = useRoute()
+const router = useRouter()
 
 const handleClick =()=>{
-    window.location = "http://localhost:8080"
+    router.push('Login')
 }
 
 const handleSelect = ()=>{
@@ -36,6 +46,7 @@ const handleSelect = ()=>{
     position:sticky;
     top:0px;
     z-index:1000;
+    overflow:hidden;
 }
 .right{
     position: fixed;

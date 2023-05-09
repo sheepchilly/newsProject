@@ -23,6 +23,11 @@ const routes = [
         name:"product",
         component:()=>import('@/views/Product.vue')
     },
+    {
+        path:"/Login",
+        name:"Login",
+        component:()=>import('@/views/Login.vue')
+    },
 ]
 
 const router = createRouter({
