@@ -42,6 +42,18 @@ const routes=[
         component:()=>import('@/views/product-manage/ProductEdit.vue')
     },
     {
+        path:'/index-manage/addindex',
+        component:()=>import('@/views/index-manage/IndexAdd.vue')
+    },
+    {
+        path:'/index-manage/indexlist',
+        component:()=>import('@/views/index-manage/IndexList.vue')
+    },
+    {
+        path:'/index-manage/editindex/:id',
+        component:()=>import('@/views/index-manage/IndexEdit.vue')
+    },
+    {
         //重定向到/index
         path:'/',
         redirect:'/index'

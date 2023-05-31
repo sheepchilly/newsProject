@@ -128,7 +128,6 @@
   //取当前页面数据
   onMounted(async ()=>{
     const res = await axios.get(`/adminapi/news/list/${route.params.id}`)
-    // newsForm = reactive(res.data.data[0])
     Object.assign(newsForm,res.data.data[0])
   })
   </script>

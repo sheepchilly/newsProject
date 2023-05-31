@@ -45,14 +45,25 @@
           <span>产品管理</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="/product-manage/addproduct"
-            >添加产品</el-menu-item
+          <el-menu-item index="/product-manage/addproduct">添加产品</el-menu-item
           >
-          <el-menu-item index="/product-manage/productlist"
-            >产品列表</el-menu-item
+          <el-menu-item index="/product-manage/productlist">产品列表</el-menu-item
           >
         </el-menu-item-group>
       </el-sub-menu>
+
+      <el-sub-menu index="/index-manage">
+        <template #title>
+          <el-icon><EditPen color="white" /></el-icon>
+          <span>首页新闻展示</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="/index-manage/addindex">创建首页新闻</el-menu-item>
+          <el-menu-item index="/index-manage/indexlist">首页新闻列表</el-menu-item>
+        </el-menu-item-group>
+      </el-sub-menu>
+
+
     </el-menu>
   </el-aside>
 </template>
@@ -65,6 +76,7 @@ import {
   MessageBox,
   Reading,
   Pointer,
+  EditPen
 } from "@element-plus/icons-vue";
 import { useRoute } from "vue-router";
 import { useStore } from 'vuex'

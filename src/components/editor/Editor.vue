@@ -23,8 +23,6 @@ onMounted(()=>{
   editor.config.onchange = debounce((newHTML)=>{
     emit("event",newHTML)
   })
-
-  
 })
 </script>
 

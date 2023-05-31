@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+//upload上传函数需要传递两个参数 => 1.path路径 2.userForm表单信息
 function upload(path,userForm) {
     //创建FormData()对象 => 使用该对象来模拟和处理表单并方便的进行文件上传操作
     const params = new FormData();

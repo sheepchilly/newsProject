@@ -3,7 +3,7 @@
     <el-page-header
       content="个人中心"
       icon=""
-      title="企业门户管理系统"
+      title="致一科技后台管理系统"
     ></el-page-header>
 
     <el-row :gutter="20" class="el-row">
@@ -125,7 +125,9 @@ const handleChange = (file) => {
 const submitForm = () => {
   userFormRef.value.validate(async (valid) => {
     if (valid) {
+      //在这里是用了自己封装的方法upload，传递了一个地址和表单数据
       const res = await upload("/adminapi/user/upload",userForm)
+      //在upload函数的成功回调中已经.data了一次，所以这里不需要res.data.data就可以拿到数据
           if(res.ActionType==="ok"){
             store.commit('changeUserInfo',res.data)
             ElMessage.success('更新成功！');

@@ -2,7 +2,7 @@
   <el-header>
     <div class="left">
       <el-icon @click="handleCollapsed"><Menu /></el-icon>
-      <span style="margin-left: 10px">企业门户网站管理系统</span>
+      <span style="margin-left: 10px">致一科技后台管理系统</span>
     </div>
     <div class="right">
       <span>欢迎 {{ store.state.userInfo.username }} 回来</span>
