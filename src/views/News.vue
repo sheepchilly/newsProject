@@ -2,8 +2,11 @@
   <div class="container">
     <div
       class="news-header"
-      :style="{ backgroundImage: `url(${require('@/assets/newsbg.jpg')})` }"
-    ></div>
+      :style="{ backgroundImage: `url(${require('@/assets/newsBanner.jpg')})` }"
+    >
+    <h1 class="bannerTitle">最新新闻</h1>
+    <h3 class="bannerSubtitle">从连接人、服务及设备，到连接企业及未来科技，形成共赢的产业生态</h3>
+  </div>
 
     <div class="search">
       <el-popover
@@ -184,6 +187,22 @@ const handleChangepage = (id)=>{
   height: 500px;
   //图片缩放至背景图片大小
   background-size: cover;
+  .bannerTitle{
+    color: white;
+    font-size: 80px;
+    padding-top: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .bannerSubtitle{
+    color: white;
+    font-size: 30px;
+    padding-top:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .search {
   position: absolute;

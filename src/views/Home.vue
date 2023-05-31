@@ -69,14 +69,16 @@
 
     <div class="container-body">
       <div class="oneLiner" >
-        <div class="oneLiner-item" v-for="(item,index) in bodyOneList" :key="item.url">
+        <div class="oneLiner-item" v-for="item in bodyOneList" :key="item.url">
           <div class="imgBig">
-          <img :src="require('../../../img/'+item.url)" class="oneLiner-img"/>
+        <div class="oneLiner-img" :style="{backgroundImage: `url(http://localhost:3000${item.url})`}"></div>
         </div>
             <div class="oneLiner-time">{{ item.time }}</div>
             <div class="linerBottom">
             <div class="oneLiner-h1">{{item.title}}</div>
-            <div class="oneLiner-h2">{{item.text}}</div>
+            <!-- 富文本编辑器上传到服务器的p标签可以用v-html去除，也可以用正则表达式 -->
+            <!-- <div class="oneLiner-h2" v-html="item.text"></div> -->
+            <div class="oneLiner-h2">{{ item.subtitle.replace(/<[^>]+>/g, '') }}</div>
             </div>
         </div>
       </div>
@@ -84,16 +86,64 @@
 
     <div class="container-body">
       <div class="twoLiner" >
-        <div class="oneLiner-item" v-for="(item,index) in bodyTwoList" :key="item.url">
+        <div class="oneLiner-item" v-for="item in bodyTwoList" :key="item.url">
           <div class="imgBig">
-          <img :src="require('../assets/'+item.url)" class="oneLiner-img"/>
+            <div class="oneLiner-img" :style="{backgroundImage: `url(http://localhost:3000${item.url})`}"></div>
         </div>
             <div class="oneLiner-time">{{ item.time }}</div>
             <div class="linerBottom">
             <div class="oneLiner-h1">{{item.title}}</div>
-            <div class="oneLiner-h2">{{item.text}}</div>
+            <div class="oneLiner-h2">{{item.subtitle.replace(/<[^>]+>/g, '')}}</div>
             </div>
         </div>
+      </div>
+    </div>
+
+    <div class="container-black">
+      <div class="blackList">
+      <div class="black-left">
+        <div class="black-left-text" ref="blackTextOne" @mouseenter="blackChangeOne">
+            <h1>连接用户生活</h1>
+            <h3>让生活更便捷更多彩</h3>
+            <img :src="(require('../assets/icon/right-white.png'))" class="textIcon"/>
+        </div>
+        <div class="black-left-text" ref="blackTextTwo" @mouseenter="blackChangeTwo">
+            <h1>连接企业与科技</h1>
+            <h3>数字化助手，助力产业升级</h3>
+            <img :src="(require('../assets/icon/right-white.png'))" class="textIcon"/>
+        </div>
+        <div class="black-left-text" ref="blackTextThree" @mouseenter="blackChangeThree">
+            <h1>连接现在与未来</h1>
+            <h3>探索面向未来的创新科技</h3>
+            <img :src="(require('../assets/icon/right-white.png'))" class="textIcon"/>
+        </div>
+      </div>
+    </div>
+
+      <div class="black-right">
+
+        <div class="black-rightImg" v-if="blackImgChange == 0">
+          <div class="right-one" v-for="(item,index) in rightOneImg" :key="index">
+            <img :src="require('../assets/black/'+item.url)" class="right-one-img"/>
+            <div class="right-one-title">{{ item.title }}</div>
+          </div>
+        </div>
+
+        <div class="black-rightImg" v-if="blackImgChange == 1">
+          <div class="right-one" v-for="(item,index) in rightTwoImg" :key="index">
+            <img :src="require('../assets/black/'+item.url)" class="right-one-img"/>
+            <div class="right-one-title">{{ item.title }}</div>
+          </div>
+        </div>
+
+        <div class="black-rightImg" v-if="blackImgChange == 2">
+          <div class="right-one" v-for="(item,index) in rightThreeImg" :key="index">
+            <img :src="require('../assets/black/'+item.url)" class="right-one-img"/>
+            <div class="right-one-title">{{ item.title }}</div>
+          </div>
+        </div>
+
+
       </div>
     </div>
 
@@ -114,51 +164,65 @@
 </template>
 
 <script setup>
-import {ref,reactive} from 'vue'
+import {ref,reactive,onMounted} from 'vue'
+import axios from 'axios'
 
-
-const bodyOneList = ref([
-  {
-    url:"itemOne1.jpg",
-    time:"2023.04.26",
-    title:"加速创新创造——腾讯产品背后的女性发明人",
-    text:"女性发明人为腾讯的全球专利申请做出了重要贡献。在我们的6.2万份专利申请中，超过35%的申请凝结着她们的智慧与汗水。"
-  },
-  {
-    url:"itemOne2.jpg",
-    time:"2023.04.18",
-    title:"带你穿越时空沉浸式云游文化遗址",
-    text:"正值2023年“国际古迹遗址日”来临之际，腾讯与敦煌研究院联合打造的首个超时空参与式博物馆“数字藏经洞”于今日正式上线。"
-  },
-  {
-    url:"itemOne3.jpg",
-    time:"2023.04.17",
-    title:"基于云的解决方案将助力全球自动驾驶升级迭代",
-    text:"上海车展前夕，我们采访了腾讯智慧出行副总裁刘澍泉，讨论了基于云的解决方案在发展自动驾驶技术方面的重要性。"
-  }
-])
-const bodyTwoList = ref([
-{
-    url:"itemTwo1.jpg",
-    time:"2023.04.03",
-    title:"汤道生：下一代互联网的三个趋势",
-    text:"AI将成为互联网的核心驱动力，机器也会成为内容、甚至服务的供给者。供需关系亦将发生变化。"
-  },
-  {
-    url:"itemTwo2.jpg",
-    time:"2023.05.08",
-    title:"科学减排再进一程：温室气体减排目标通过国际组织ST认证",
-    text:"基于科学的温室气体减排近期目标已通过科学碳目标倡议（SBTi）认证。"
-  },
-  {
-    url:"bodyOne2.jpg",
-    time:"2023.05.08",
-    title:"集团发布2022年度ESG报告：三管齐下，齐头并进",
-    text:"过去一年中，集团在环境、社会及管治（ESG）方面均取得稳步进展。"
-  }
-])
-
+const bodyList = reactive([])
+let bodyOneList = ref([])
+let bodyTwoList = ref([])
 const bodyThreeList = ref(["bigBanner1.jpg","bigBanner2.jpg","bigBanner3.jpg"])
+const rightOneImg = ref([
+  {url:'black1-1.jpg',title:"通信与社交"},
+  {url:'black1-2.jpg',title:'数字与内容'},
+  {url:'black1-3.jpg',title:'金融科技与服务'},
+  {url:'black1-4.jpg',title:'工具'}
+])
+const rightTwoImg = ref([
+  {url:'black2-1.jpg',title:"通信与社交"},
+  {url:'black2-2.jpg',title:'数字与内容'},
+  {url:'black2-3.jpg',title:'金融科技与服务'},
+  {url:'black2-4.jpg',title:'金融科技与服务'},
+])
+const rightThreeImg = ref([
+  {url:'black3-1.jpg',title:"通信与社交"},
+  {url:'black3-2.jpg',title:'数字与内容'},
+  {url:'black3-3.jpg',title:'金融科技与服务'},
+  {url:'black3-4.jpg',title:'金融科技与服务'},
+])
+const blackImgChange = ref(0)
+const blackTextOne = ref(null)
+const blackTextTwo = ref(null)
+const blackTextThree = ref(null)
+const isLeave = ref(false)
+
+const blackChangeOne = ()=>{
+  blackImgChange.value = 0
+}
+const blackChangeTwo = ()=>{
+  blackImgChange.value = 1
+}
+const blackChangeThree = ()=>{
+  blackImgChange.value = 2
+}
+
+onMounted(()=>{
+  getBodyList()
+})
+
+const getBodyList = async()=>{
+  let result = await axios.get('/webapi/index/getList')
+  let data = result.data.data
+  
+  let list1 = data.slice(0,3)
+  bodyOneList.value = list1
+
+  let list2 = data.slice(3,6)
+  bodyTwoList.value = list2
+
+  //别忘了reactive要用push+扩展运算符追加数据，而ref只需要.value就可以
+  bodyList.push(...data)
+}
+
 
 </script>
 
@@ -246,7 +310,8 @@ const bodyThreeList = ref(["bigBanner1.jpg","bigBanner2.jpg","bigBanner3.jpg"])
     }
     .oneLiner-img{
       width: 100%;
-      height: 250px;
+      height: 100%;
+      background-size: 384px 250px;
       &:hover{
         transform: scale(1.1);
         transition-duration: 300ms;
@@ -279,7 +344,7 @@ const bodyThreeList = ref(["bigBanner1.jpg","bigBanner2.jpg","bigBanner3.jpg"])
       }
       .oneLiner-h2{
         margin-top:30px;
-        background: transparent;
+        background: transparent !important;
         font-size:18px;
       }
       
@@ -315,6 +380,7 @@ const bodyThreeList = ref(["bigBanner1.jpg","bigBanner2.jpg","bigBanner3.jpg"])
     .oneLiner-img{
       width: 100%;
       height: 250px;
+      background-size: 384px 250px;
       &:hover{
         transform: scale(1.1);
         transition-duration: 300ms;
@@ -362,6 +428,98 @@ const bodyThreeList = ref(["bigBanner1.jpg","bigBanner2.jpg","bigBanner3.jpg"])
 }
 .twoLiner :nth-child(3){
   background: #fff;
+}
+
+.container-black{
+  background: #1B1F25;
+  color: #FFF;
+  width: 100%;
+  margin-bottom: 60px;
+  height: 620px;
+  position:relative;
+  display: flex;
+  justify-content: space-between;
+  .blackList{
+      padding-top: 50px;
+      width: 400px;
+      display:flex;
+      flex-direction:column;
+      justify-content: center;
+      align-items: center;
+
+    .black-left-text{
+    width: 290px;
+    font-style:italic;
+    color:rgb(141,143,146);
+    position: relative;
+    transition: all 0.3s;
+    &:hover{
+      transform: translate(10%,0);
+      color:#fff;
+      .textIcon{
+        visibility: visible;
+      }
+      h1::before{
+        content:"";
+        display:block;
+      }
+    }
+    .textIcon{
+      width: 70px;
+      height:40px;
+      margin-top: 10px;
+      visibility: hidden;
+    }
+    h1::before{
+      content: "";
+      background: #0052D9;
+      width: 6px;
+      height:38px;
+      position: absolute;
+      top: 0;
+      left:-24px;
+      display: none;
+      transition:all ease 0.3s;
+    }
+    h1{
+      padding-left: 20px;
+      margin-top: 40px;
+      font-size:35px;
+      }
+    h3{
+      font-weight:400;
+    }
+  }
+  }
+  .black-right{
+    // flex:2;
+    .black-rightImg{
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+      width: 800px;
+      height: 610px;
+      .right-one{
+        position: relative;
+      .right-one-img{
+        width: 395px;
+        height: 306px;
+      }
+      .right-one-title{
+        position:absolute;
+        bottom:35px;
+        left:25px;
+        color:#fff;
+        font-size:25px;
+        font-style: italic;
+        font-weight: bold;
+      }
+    }
+    }
+  }
+
 }
 .bottomItem{
   width: 100%;

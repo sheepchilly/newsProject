@@ -2,7 +2,7 @@
   <div class="appcontainer">
     <Navbar v-if="hasLogin"/>
     <router-view></router-view>
-    <Footer v-if="hasLogin" />
+    <Footer v-if="hasProduct" />
   </div>
 </template>
 
@@ -15,6 +15,12 @@ const Route = useRoute()
 
 const hasLogin = computed(()=>{
   if(Route.name === 'Login')
+    return false
+  return true
+})
+
+const hasProduct = computed(()=>{
+  if(Route.name === 'Login' || Route.name === 'product')
     return false
   return true
 })
